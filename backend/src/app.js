@@ -18,8 +18,8 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// Explicitly handle preflight across routes
-app.options("*", cors(corsOptions));
+// Explicitly handle preflight across routes using a regex path to avoid path-to-regexp issues
+app.options(/.*/, cors(corsOptions));
 // Routes
 
 app.use("/api/district", districtRoutes);
