@@ -31,6 +31,69 @@ export const translate = (key, lang = "en") => {
   // For now, return English with simple descriptions
   // Backend integration will replace this
   const translations = {
+    explainInYourLanguage:
+      lang === "hi"
+        ? "अपनी भाषा में डेटा समझाएं"
+        : lang === "bn"
+        ? "আপনার ভাষায় ডেটা ব্যাখ্যা করুন"
+        : lang === "te"
+        ? "మీ భాషలో డేటాను వివరించండి"
+        : lang === "ta"
+        ? "உங்கள் மொழியில் தரவை விளக்கவும்"
+        : lang === "mr"
+        ? "तुमच्या भाषेत माहिती समजावून सांगा"
+        : lang === "gu"
+        ? "તમારી ભાષામાં ડેટા સમજાવો"
+        : lang === "kn"
+        ? "ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಡೇಟಾವನ್ನು ವಿವರಿಸಿ"
+        : lang === "or"
+        ? "ଆପଣଙ୍କ ଭାଷାରେ ତଥ୍ୟ ବ୍ୟାଖ୍ୟା କରନ୍ତୁ"
+        : lang === "ml"
+        ? "നിങ്ങളുടെ ഭാഷയിൽ ഡാറ്റ വിശദീകരിക്കുക"
+        : lang === "pa"
+        ? "ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਡਾਟਾ ਸਮਝਾਓ"
+        : lang === "ur"
+        ? "اپنی زبان میں ڈیٹا کی وضاحت کریں"
+        : lang === "as"
+        ? "আপোনাৰ ভাষাত ডাটা বুজাওক"
+        : lang === "ne"
+        ? "तपाईंको भाषामा तथ्याङ्क व्याख्या गर्नुहोस्"
+        : lang === "sa"
+        ? "स्वभाषायां दत्तांशस्य व्याख्या कुर्वन्तु"
+        : lang === "sd"
+        ? "پنهنجي ٻولي ۾ ڊيٽا وضاحت ڪريو"
+        : lang === "ks"
+        ? "اپنۍ زَبانہ منز ڈاٹا وُضاحت کَریو"
+        : lang === "kok"
+        ? "तुमच्या भासें डेटा समजावचो"
+        : lang === "mni"
+        ? "অদোমগী লোনদা দাতা খাংদবা তৌরো"
+        : lang === "mai"
+        ? "अपन भाषा मेँ डेटा बुझाबू"
+        : lang === "brx"
+        ? "नुथाय रोमानि सुबुं डाटा थांआनाय हर"
+        : lang === "doi"
+        ? "अपणी भाषा च डाटा समझाओ"
+        : "Explain data in your language",
+    aiSummary:
+      lang === "hi"
+        ? "एआई द्वारा तैयार सारांश"
+        : lang === "bn"
+        ? "এআই তৈরি সারসংক্ষেপ"
+        : "AI Generated Summary",
+    detailedInLanguage:
+      lang === "hi"
+        ? "विस्तृत विवरण"
+        : lang === "bn"
+        ? "বিশদ বর্ণনা"
+        : "Detailed description in",
+    back: lang === "hi" ? "वापस" : lang === "bn" ? "ফিরে যান" : "Back",
+    generating:
+      lang === "hi"
+        ? "बना रहा है..."
+        : lang === "bn"
+        ? "তৈরি হচ্ছে..."
+        : "Generating...",
     month: lang === "hi" ? "महीना" : lang === "bn" ? "মাস" : "Month",
     district: lang === "hi" ? "जिला" : lang === "bn" ? "জেলা" : "District",
     totalExp:

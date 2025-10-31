@@ -5,13 +5,30 @@ import {
   translate,
   getLocalizedDescription,
 } from "../data/translations";
+// AI explanation handled in dedicated page
 
 const MonthlyDataCard = ({ monthData }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedLang, setSelectedLang] = useState("en");
   const [showLangSelector, setShowLangSelector] = useState(false);
+  // AI explanation moved to dedicated page
   const navigate = useNavigate();
   const langSelectorRef = useRef(null);
+
+  // Initialize selected language from localStorage
+  useEffect(() => {
+    try {
+      const savedLang = localStorage.getItem("selectedLang");
+      if (
+        savedLang &&
+        supportedLanguages.some((lang) => lang.code === savedLang)
+      ) {
+        setSelectedLang(savedLang);
+      }
+    } catch (e) {
+      // ignore storage errors
+    }
+  }, []);
 
   const handleViewChart = () => {
     navigate("/charts", { state: { monthData } });
@@ -19,6 +36,10 @@ const MonthlyDataCard = ({ monthData }) => {
 
   const handleViewLanguageDetail = () => {
     navigate("/language-detail", { state: { monthData, selectedLang } });
+  };
+
+  const handleGetAIExplanation = () => {
+    navigate("/ai-explanation", { state: { monthData, selectedLang } });
   };
 
   // Close language selector when clicking outside
@@ -93,7 +114,7 @@ const MonthlyDataCard = ({ monthData }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300">
       {/* Card Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 py-4 relative">
+      <div className="bg-linear-to-r from-blue-600 to-blue-500 text-white px-6 py-4 relative">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-xl font-bold">
@@ -144,6 +165,9 @@ const MonthlyDataCard = ({ monthData }) => {
                   key={lang.code}
                   onClick={() => {
                     setSelectedLang(lang.code);
+                    try {
+                      localStorage.setItem("selectedLang", lang.code);
+                    } catch (e) {}
                     setShowLangSelector(false);
                   }}
                   className={`w-full text-left px-3 py-2 rounded hover:bg-blue-50 transition-colors ${
@@ -220,10 +244,33 @@ const MonthlyDataCard = ({ monthData }) => {
         </div>
 
         {/* Localized Description */}
-        <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-          <p className="text-sm text-gray-700 leading-relaxed mb-3">
+        <div className="mt-4 p-4 bg-linear-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+          {/* <p className="text-sm text-gray-700 leading-relaxed mb-3">
             {getLocalizedDescription(monthData, selectedLang)}
-          </p>
+          </p> */}
+
+          {/* AI Explanation now navigates to a dedicated page */}
+
+          {/* AI Explanation Button */}
+          <button
+            onClick={handleGetAIExplanation}
+            className="w-full bg-linear-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 mb-2"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+            <span>{translate("explainInYourLanguage", selectedLang)}</span>
+          </button>
 
           {/* View Full Description Button */}
           <button

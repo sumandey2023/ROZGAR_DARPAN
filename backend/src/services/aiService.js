@@ -1,10 +1,17 @@
+require("dotenv").config();
 const { GoogleGenAI } = require("@google/genai");
-const ai = new GoogleGenAI({});
+
+const apiKey = process.env.GOOGLE_API_KEY;
+if (!apiKey) {
+  console.error("Warning: GOOGLE_API_KEY not found in environment variables");
+}
+const ai = new GoogleGenAI({
+  apiKey: apiKey,
+});
 
 async function generateAIResponse(content) {
   console.log("Generating AI response for content:", content);
 
-  // Convert content object to JSON string
   const contentString = JSON.stringify(content, null, 2);
 
   const response = await ai.models.generateContent({
@@ -33,6 +40,8 @@ Reads and interprets all fields from the "data" object — nothing is skipped.
 Automatically explains data in the user’s chosen language (e.g., "bengali", "hindi", "english").
 
 Converts raw numeric or coded data into clear, human-friendly descriptions.
+
+not need to give the the json key name in the explanation. just give the explanation of the data.
 
 Provides slightly elaborated, story-style explanations for better understanding.
 

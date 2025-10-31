@@ -5,7 +5,6 @@ const DISTRICT_API_BASE_URL =
   "https://api.data.gov.in/resource/ee03643a-ee4c-48c2-ac30-9f2ff26ab722";
 const API_KEY = process.env.API_KEY;
 
-// Helper function to convert string numbers to actual numbers
 function convertToNumber(value) {
   if (value === null || value === undefined || value === "") {
     return 0;
@@ -14,12 +13,12 @@ function convertToNumber(value) {
   return isNaN(num) ? 0 : num;
 }
 
-// Fetch and store district data
+
 const fetchDistrictData = async (req, res) => {
   try {
     const { state_name, fin_year, district_name, month } = req.body;
 
-    // Validate required parameters
+  
     if (!state_name || !fin_year || !district_name) {
       return res.status(400).json({
         success: false,
@@ -28,17 +27,17 @@ const fetchDistrictData = async (req, res) => {
       });
     }
 
-    // Build the API URL with filters - convert to uppercase for external API (NO MONTH FILTER)
+    
     const filters = {
       "filters[state_name]": state_name.toUpperCase(),
       "filters[fin_year]": fin_year.toUpperCase(),
     };
 
-    // Add district_name filter if provided
+    
     if (district_name && district_name !== "") {
       filters["filters[district_name]"] = district_name.toUpperCase();
     }
-    // NOTE: NOT filtering by month in API call - will fetch all months
+   
 
     const params = new URLSearchParams({
       "api-key": API_KEY,
