@@ -8,15 +8,18 @@ const app = express();
 connectDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://rozgar-darpan.vercel.app/",
-    ].filter(Boolean),
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  })
-);
+
+// CORS configuration
+const corsOptions = {
+  origin: ["http://localhost:5173", "https://rozgar-darpan.vercel.app"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false,
+};
+
+app.use(cors(corsOptions));
+// Explicitly handle preflight across routes
+app.options("*", cors(corsOptions));
 // Routes
 
 app.use("/api/district", districtRoutes);
